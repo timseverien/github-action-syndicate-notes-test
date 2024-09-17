@@ -29,6 +29,8 @@ jobs:
   syndicate:
     name: 📢 Syndicate
     needs: [deploy]
+    permissions:
+      contents: write
     runs-on: ubuntu-latest
     steps:
       - name: 🚚 Get latest code
@@ -53,4 +55,4 @@ jobs:
 
       # Required to persist cache
       - name: Commit and push
-        uses: stefanzweifel/git-auto-commit-action@v4
+        uses: stefanzweifel/git-auto-commit-action@v5
