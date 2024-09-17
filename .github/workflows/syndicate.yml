@@ -1,0 +1,45 @@
+on: push
+name: 🚀 Deploy website on push
+jobs:
+  web-deploy:
+    name: 🎉 Deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🚚 Get latest code
+        uses: actions/checkout@v4
+
+      - name: 📦 Install Netlify
+        run: npm install netlify-cli@17.10.1 -g
+
+      - name: 🔧 Build project
+        run: npm run build
+
+      - name: 🚀 Deploy to Netlify
+        id: netlify_deploy
+        run: |
+          netlify deploy \
+            --dir dist \
+            --site ${{ secrets.NETLIFY_SITE_ID }} \
+            --auth ${{ secrets.NETLIFY_ACCESS_TOKEN }} \
+            --prod
+
+      - name: 📢 Syndicate
+        uses: timseverien/syndicate-notes
+        with:
+          feedType: jsonfeed
+          feedUrl: https://syndicate-notes-test.netlify.app/feed.json
+
+          # Optional: format the message - allows you to add prefixes and suffixes
+          # contentFormat: '{{content}} {{url}}'
+
+          # Optional: change the cache directory used to track what’s published
+          # cacheDirectory: .cache/syndicate-notes
+
+          # Integration details
+          # These are all optional — omit the integrations you don’t want to publish to
+          discordWebhookId: ${{ secrets.DISCORD_WEBHOOK_ID }}
+          discordWebhookToken: ${{ secrets.DISCORD_WEBHOOK_TOKEN }}
+
+      # Required to persist cache
+      - name: Commit and push
+        uses: stefanzweifel/git-auto-commit-action@v4
