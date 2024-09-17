@@ -1,7 +1,7 @@
 on: push
 name: 🚀 Deploy website on push
 jobs:
-  web-deploy:
+  deploy:
     name: 🎉 Deploy
     runs-on: ubuntu-latest
     steps:
@@ -22,6 +22,14 @@ jobs:
             --site ${{ secrets.NETLIFY_SITE_ID }} \
             --auth ${{ secrets.NETLIFY_ACCESS_TOKEN }} \
             --prod
+
+  syndicate:
+    name: 📢 Syndicate
+    needs: [deploy]
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🚚 Get latest code
+        uses: actions/checkout@v4
 
       - name: 📢 Syndicate
         uses: timseverien/syndicate-notes@v1.0.4
