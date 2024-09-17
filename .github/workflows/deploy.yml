@@ -37,7 +37,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: 📢 Syndicate
-        uses: timseverien/syndicate-notes@v1.0.5-6
+        uses: timseverien/syndicate-notes@v1.0.5-7
         with:
           feedType: jsonfeed
           feedUrl: https://syndicate-notes-test.netlify.app/feed.json
