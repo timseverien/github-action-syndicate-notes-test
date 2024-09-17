@@ -9,7 +9,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: 📦 Install Netlify
-        run: npm install netlify-cli@17.10.1 -g
+        run: npm install netlify-cli@17.36.0 -g
 
       - name: 🔧 Build project
         run: npm run build
