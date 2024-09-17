@@ -1,3 +1,5 @@
+!.cache/syndicate-notes.json
+
 # build output
 dist/
 # generated types
